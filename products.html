@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Grid</title>
+    <style>
+        .navbar {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 0 10px;
+        }
+
+        .navbar-link:last-child {
+            margin-right: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .sort-buttons {
+            display: flex;
+            justify-content: space-around;
+            width: 70%;
+        }
+
+        .sort-button,
+        .relevance-button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 0;
+            cursor: pointer;
+            border-radius: 5px;
+            transition-duration: 0.4s;
+            width: 100%;
+            max-width: 150px;
+        }
+
+        .sort-button:hover,
+        .relevance-button:hover {
+            background-color: #45a049;
+        }
+
+        .grid-container {
+            width: calc(100% - 40px);
+            /* Adjusted width */
+            overflow-x: hidden;
+            overflow-y: hidden;
+            /* Changed overflow-y to hidden to prevent vertical scrolling */
+            white-space: nowrap;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 270px);
+            /* Set width for 5 items */
+            gap: 10px;
+            /* Adjusted gap */
+            justify-content: center;
+        }
+
+        .grid-item {
+            width: 270px;
+            /* Adjusted fixed width */
+            margin: 0 5px;
+            /* Adjusted margin */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: auto;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .product-info {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .product-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .price {
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .original-price {
+            color: grey;
+            text-decoration: line-through;
+            margin-right: 5px;
+        }
+
+        .discounted-price {
+            color: red;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: 5% auto;
+            padding: 20px;
+            width: 60%;
+            background-color: #fefefe;
+            border-radius: 5px;
+        }
+
+        .close {
+            position: absolute;
+            top: 0;
+            right: 15px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+       <div class="navbar">
+        <div class="navbar-logo">
+            <img src="sklogo-dark.png" alt="Logo">
+        </div>
+        <div class="navbar-links">
+            <a href="LOGIN.html" class="navbar-link">LOGIN</a>
+            <a href="SIGNUP.html" class="navbar-link">SIGNUP</a>
+        </div>
+    </div>
+
+<h1 style="text-align: center;">Welcome to Our Product Grid</h1><br><br><br>
+<div class="container">
+    <div class="sort-buttons">
+        <button class="relevance-button" onclick="sortByDefaultOrder()">Relevance</button>
+        <button class="sort-button" onclick="sortByLowToHigh()">Low to High Price</button>
+        <button class="sort-button" onclick="sortByHighToLow()">High to Low Price</button>
+        <button class="sort-button" onclick="sortByMaxDiscount()">Maximum Discount</button>
+    </div>
+</div>
+<div class="grid-container">
+    <div class="grid">
+        <!-- Product items will be dynamically added here -->
+    </div>
+</div>
+
+<div class="modal">
+    <div class="modal-content">
+        <!-- Product details will be displayed here -->
+        <span class="close">&times;</span>
+    </div>
+</div>
+<div class="copyright">
+    © Copyright 2023. Made by Vaibhav Singh
+</div>
+
+<script>
+    const products = [
+        { name: "Harpic 400Ml", originalPrice: 299, discountedPrice: 199, discount: 33, image: "1709722089 (1).jpg", description: "Powerful toilet cleaner for a sparkling clean bathroom." },
+        { name: "Dettol Liquid Soap 1 litre", originalPrice: 299, discountedPrice: 149, discount: 50, image: "1709707480.jpg", description: "Trusted antibacterial hand wash for germ-free hands." },
+            { name: "Scrub Bar", originalPrice: 30, discountedPrice: 19, discount: 36, image: "cc9f41b633806653cd13a43c31c5cceb_560x694.jpg", description: "Tough stain remover soap bar for effective cleaning." },
+            { name: "Tissue Paper", originalPrice: 60, discountedPrice: 40, discount: 33, image: "1709721535.jpg", description: "Soft and absorbent tissue for everyday use." },
+            { name: "Cotton Pochcha XL", originalPrice: 60, discountedPrice: 45, discount: 25, image: "1709721679.jpg", description: "Durable cotton mop for efficient floor cleaning." },
+            { name: "Wep Mop", originalPrice: 100, discountedPrice: 80, discount: 20, image: "1709722699.jpg", description: "Versatile mop for easy and effective floor maintenance." },
+            { name: "Air Freshner 100 gm",originalPrice: 249, discountedPrice: 149, discount: 40, image: "1709722425.jpg", description: "Long-lasting air freshener for a pleasant atmosphere." },
+            { name: "GARBAGE BAG", originalPrice: 299, discountedPrice: 99, discount: 67, image: "1709711446.jpg", description: "Strong and reliable bags for hygienic waste disposal." },
+            { name: "RUBBER GLOVES", originalPrice: 35, discountedPrice: 25, discount: 28, image: "1709711727.jpg", description: "Protective gloves for safe and comfortable cleaning." },
+            { name: "Floor Cleaner 5Litre", originalPrice: 3000, discountedPrice: 1990, discount: 34, image: "4519f113fa8246c2fc72e1f66beca8b6_450x694.jpeg", description: "Protective gloves for safe and comfortable cleaning." },
+          { name: "Colin", originalPrice: 299, discountedPrice: 179, discount: 40, image: "f82896432a78912385d276da6764223f.jpg", description: "Colin Glass Cleaner is a powerful and versatile cleaning solution formulated to provide streak-free shine and clarity to glass surfaces. " },
+{ name: "Shoe Polish", originalPrice: 80, discountedPrice: 55, discount: 31.25, image: "20ca4237eb81da37b5431c8352eded56.jpg", description: "Shoe polish is a specialized product crafted to protect, nourish, and enhance the appearance of leather shoes. " },
+{ name: "Gala Broom", originalPrice: 80, discountedPrice: 60, discount: 25, image: "d5a64210174171539cdd98e8f93b9fa0.jpg", description: "Gala broom is a reliable and efficient cleaning tool designed to tackle a variety of sweeping tasks with ease. Crafted with durable materials and thoughtful design, the Gala broom offers both effectiveness and durability." },
+{ name: "Dustbin", originalPrice: 599, discountedPrice: 399, discount: 33.39, image: "be7081c5d4c90047764c74a30f090c5f.jpg", description: "Available in a range of sizes, shapes, and materials, dustbins offer practical solutions for waste disposal in homes, offices, public areas, and outdoor settings." },
+{ name: "100 Paper Cups (100ml)", originalPrice: 299, discountedPrice: 99, discount: 66.56, image: "79272944987404fcec0810959a848448.jpg", description: "Paper cups offer a convenient and eco-friendly solution for serving hot or cold beverages on-the-go. Made from renewable resources, they provide a sustainable alternative to traditional plastic cups, perfect for events, parties, and everyday use." },
+{ name: "Hand Sanitizer", originalPrice: 99, discountedPrice: 39, discount: 60.61, image: "8b16a4851c0f95e3a3b2b04b33b0a859.jpg", description: "Hand sanitizer, an essential hygiene product, effectively kills germs and bacteria, promoting cleanliness and health. Its convenient portable size makes it ideal for use at home, work, or while traveling." },
+{ name: "Vim Bar", originalPrice: 15, discountedPrice: 10, discount: 33.33, image: "a4b98ba7993094c27c01604afa53fe21.jpg", description: "Vim Bar Liquid offers powerful cleaning action, tackling tough stains and grease with ease. Its versatile formula makes it suitable for a variety of surfaces, ensuring a sparkling clean finish every time.." },
+{ name: "Microfibre Dusting Cloth", originalPrice: 80, discountedPrice: 20, discount: 75, image: "12dad9cdd01862317f8cc4195094ea83.jpg", description: "Microfiber cloth, the ultimate cleaning essential, traps dirt and dust effectively for streak-free surfaces. With its ultra-absorbent and lint-free properties, it ensures a sparkling shine on every surface with minimal effort." },
+{ name: "static duster", originalPrice: 299, discountedPrice: 99, discount: 66.89, image: "812b31e961b1e790da1511b6f684c0bc.jpg", description: "The static duster effortlessly attracts and holds onto dust particles with its electrostatic charge, leaving surfaces spotless. Its flexible design reaches into tight spaces and corners, making cleaning a breeze while reducing allergens in your home." },
+{ name: "urinal screen", originalPrice: 29, discountedPrice: 19, discount: 34.48, image: "4c512f2fe1af05394887bbf948139658.jpg", description: "A urinal screen: innovative hygiene solution for odor control and preventing drain clogs, featuring effective deodorizing and splash-reducing properties." },
+];
+    const grid = document.querySelector('.grid');
+    let sortedProducts = [...products]; // Create a copy of products array
+
+    // Function to render products
+    function renderProducts(productList) {
+        grid.innerHTML = ''; // Clear grid
+        productList.forEach(product => {
+            const gridItem = document.createElement('div');
+            gridItem.classList.add('grid-item');
+            gridItem.innerHTML = `
+                <a href="#" onclick="openInNewTab('${product.image}', '${product.name}', '${product.discountedPrice}', '${product.description}'); return false;">
+                    <img src="${product.image}" alt="${product.name}" data-description="${product.description}">
+                </a>
+                <div class="product-info">
+                    <div class="product-name">${product.name}</div>
+                    <div class="price">
+                        <div class="original-price">₹${product.originalPrice}</div>
+                        <div class="discounted-price">₹${product.discountedPrice}</div>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(gridItem);
+        });
+    }
+
+    // Initial render
+    renderProducts(sortedProducts);
+
+    const modal = document.querySelector('.modal');
+    const modalContent = document.querySelector('.modal-content');
+
+    // Open modal with product details on image click
+    grid.addEventListener('click', (event) => {
+        if (event.target.tagName === 'IMG') {
+            const description = event.target.dataset.description;
+            const modalHTML = `
+                <h2>${event.target.alt}</h2>
+                <div class="price">
+                    <div class="original-price">${event.target.parentNode.querySelector('.original-price').innerText}</div>
+                    <div class="discounted-price">${event.target.parentNode.querySelector('.discounted-price').innerText}</div>
+                </div>
+                <hr>
+                <p>Description: ${description}</p>
+            `;
+            modalContent.innerHTML = modalHTML;
+            modal.style.display = "block";
+        }
+    });
+
+    // Close modal on close button click
+    modal.addEventListener('click', (event) => {
+        if (event.target.classList.contains('close')) {
+            modal.style.display = "none";
+        }
+    });
+
+    // Function to open image in a new tab with product details
+    function openInNewTab(imageSrc, productName, discountedPrice, description) {
+        const win = window.open('', '_blank');
+        win.document.write(`
+            <html>
+            <head>
+                <title>${productName}</title>
+                <style>
+                    img {
+                        display: block;
+                        margin: 0 auto;
+                        max-width: 100%;
+                        height: auto;
+                    }
+                    .product-details {
+                        text-align: center;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="product-details">
+                    <img src="${imageSrc}" alt="${productName}">
+                    <div>${productName}</div>
+                    <div>${discountedPrice}</div>
+                    <hr>
+                    <p>${description}</p>
+                </div>
+            </body>
+            </html>
+        `);
+        win.document.close();
+    }
+
+    // Function to sort products by relevance
+    function sortByDefaultOrder() {
+        // To display products in default manner, just render the sortedProducts array without any sorting
+        renderProducts(products);
+    }
+
+    // Function to sort products by low to high price
+    function sortByLowToHigh() {
+        sortedProducts.sort((a, b) => a.discountedPrice - b.discountedPrice);
+        renderProducts(sortedProducts);
+    }
+
+    // Function to sort products by high to low price
+    function sortByHighToLow() {
+        sortedProducts.sort((a, b) => b.discountedPrice - a.discountedPrice);
+        renderProducts(sortedProducts);
+    }
+
+    // Function to sort products by maximum discount
+    function sortByMaxDiscount() {
+        sortedProducts.sort((a, b) => b.discount - a.discount);
+        renderProducts(sortedProducts);
+    }
+</script>
+</body>
+</html>

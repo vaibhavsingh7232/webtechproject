@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; 
+}
+
+.nav-container {
+  position: relative;
+}
+
+.nav-background {
+  position: absolute;
+  top: 56px; 
+  left: 0;
+  width: 100%; 
+  height: 600px;
+  background-image: url('WhatsApp Image 2024-04-11 at 3.16.41 PM.jpeg');
+  background-size: cover ; 
+  background-repeat: no-repeat;
+  opacity: 1.0;
+  z-index: 0; 
+}
+
+.overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 20px; /* Adjust the distance from the left */
+  transform: translateY(-50%);
+}
+
+.overlay-text p {
+  color: white; /* Text color */
+  font-size: 72px; /* Text size */
+  font-weight: bold; /* Bold font */
+  margin: 0; /* Remove default margin */
+}
+
+.overlay-text p:last-child {
+  font-size: 28px; /* Second line font size */
+  font-style: italic; /* Italic font style */
+}
+
+.button-container {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.button {
+  margin-top: 20px; /* Adjust distance from text */
+  background-image: linear-gradient(to right, red 50%, white 50%) !important;
+  background-size: 200% 100%;
+  background-position: right;
+  color: red !important;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-position 0.3s, color 0.3s;
+}
+
+.button:hover {
+  background-position: left;
+  color: white ;
+}
+.nav-container ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: white;
+}
+
+.nav-container li {
+  float: left;
+}
+
+.nav-container li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  position: relative; /* Position relative for dropdown */
+}
+
+.nav-container .logo {
+  float: left;
+  padding: 10px;
+}
+
+
+.nav-container li a::before { /* Pseudo-element for underline */
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: red;
+  transition: width 0.5s ease; /* Adding animation */
+}
+
+.nav-container li a:hover::before { /* Adjust width on hover */
+  width: 100%;
+  transition: width 0.5s ease; /* Adding animation */
+}
+
+.image-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.image-container img {
+  width: 100%; /* Adjusted to fit the container */
+  height: auto;
+  margin: 10px auto; /* Adjust margin between images */
+  display: block; /* Ensure proper spacing */
+  max-width: 100%; /* Ensure the image does not exceed its container */
+}
+
+div.gallery {
+  border: 1px solid #ccc;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.responsive {
+  padding: 0 6px;
+  float: left;
+  width: 24.99999%;
+}
+
+@media only screen and (max-width: 700px) {
+  .responsive {
+    width: 49.99999%;
+    margin: 6px 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .responsive {
+    width: 100%;
+  }
+}
+
+.original-price {
+  text-decoration: line-through; /* Add a line through the original price */
+  color: gray; /* Make the original price gray */
+}
+
+.discounted-price {
+  color: red; /* Make the discounted price red */
+}
+.contact{
+    height:350px;
+    width:100%;
+    display: flex;
+    margin-top:100px;
+    padding-top:100px;
+    background-color: lightgrey;
+}
+
+.contactdiv{
+    height:100%;
+    width:60%;
+    margin-left:250px;
+    display:flex;
+}
+
+.contactbuttons {
+  height: 100%;
+  width: 50%;
+  display: grid;
+  grid-template-columns: repeat(2, max-content); /* Adjusted to fit button content */
+  grid-template-rows: repeat(2, max-content); /* Adjusted to fit button content */
+  grid-gap: 20px; /* Adjust the gap between buttons */
+  justify-content: center;
+  align-items: center;
+}
+
+.contactbuttons button {
+  background-color: white;
+  color: black; /* Adjusted font color */
+  height: 70px;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.164);
+  font-size: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s, color 0.3s; /* Added transition */
+}
+
+.contactbuttons button img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.contactbuttons button:hover {
+  background-color: red; /* Changed to red on hover */
+  color: white !important; /* Changed font color to white on hover */
+}
+
+
+
+
+
+.contacttext{
+    height:100%;
+    width:40%;
+    margin-left: 50px;
+}
+
+/* New Flexbox Style */
+.flexbox-container {
+  display: flex;
+  height: 470px;
+  width: 100%;
+}
+
+.left-section {
+  flex: 1;
+  padding: 0px;
+  background-color: beige; /* Change background color to beige */
+  overflow: hidden; /* Enable scrolling if content exceeds container height */
+  margin-top: 20px;
+}
+
+.right-section {
+  flex: 1;
+  padding: 20px;
+  background-color: beige; /* Change background color to beige */
+  overflow: hidden;
+  margin-top: 20px; /* Enable scrolling if content exceeds container height */
+}
+
+/* Second Flexbox Style */
+.flexbox-container-second {
+  display: flex;
+  height: 500px;
+  width: 100%;
+  margin-top: 0; /* No margin-top for the second flexbox */
+}
+
+.left-section-second {
+  flex: 1;
+  padding: 0px;
+  background-color: beige; /* Change background color to beige */
+  overflow: hidden; /* Enable scrolling if content exceeds container height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Align children vertically center */
+  align-items: center; /* Align children horizontally center */
+}
+
+
+.right-section-second {
+  flex: 1;
+  padding: 20px;
+  background-color: beige; /* Change background color to beige */
+  overflow: hidden;
+} /* Enable scrolling if content exceeds container height */
+}
+.left-section img {
+  width: 800px; /* Set width to 50% */
+  height: 450px; /* Set height to 400px */
+  margin: 0px; /* Add margin-bottom to create a gap */
+}
+.right-section p {
+  font-size: 20px; /* Set font size to 20px or adjust as needed */
+}
+}
+.right-section-second {
+  flex: 1;
+  padding: 20px;
+  background-color: beige;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-section-second img {
+  width: 850px;
+  height: 600px;
+  
+}
+.clients-box {
+            background-color: black;
+            padding: 20px;
+        }
+.clients-button {
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        .clients-button:hover {
+            background-color: #f0f0f0;
+        }
+.clients-button.active {
+            height: auto;
+            padding: 10px;
+        }
+
+        .clients-button-text {
+            display: none;
+            margin-top: 10px;
+        }
+
+/* Copyright Section */
+.copyright{
+    background-color: black;
+    color: white;
+    height:50px;
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.enquire-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: grey;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: none; /* Initially hide the button */
+}
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container:hover .enquire-button {
+  display: block; /* Show the button on hover */
+}
+
+.image-container:hover .enquire-button {
+  display: block; /* Show the button on hover */
+}
+
+.enquire-popup {
+  display: none;
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.image-container:hover .enquire-popup {
+  display: block;
+}
+
+  
+
+.responsive {
+  width: 24%; /* Adjusted to fit 4 products in a line */
+}
+
+.gallery {
+  margin: 10px;
+  border: 1px solid #ccc;
+  float: left;
+  width: 90%; /* Adjusted to fit 4 products in a line */
+}
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+}
+
+.desc {
+  padding: 15px;
+  text-align: center;
+}
+
+.dropdown {
+  position: relative;
+  z-index: 2; /* Ensure the dropdown is above the background image */
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  z-index: 3; /* Ensure the dropdown content is above the background image */
+  top: 56px; /* Adjust as per your navbar height */
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+..clients-button {
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .clients-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .clients-button.active {
+            height: auto;
+            padding: 10px;
+        }
+
+        .clients-button-text {
+            display: none;
+            margin-top: 10px;
+        }
+
+
+</style>
+</head>
+<body>
+
+<div class="nav-container">
+  <ul>
+    <li class="logo"><img src="sklogo-dark.png" alt="Logo" width="250" height="50"></li>
+    
+    <li style="float:right"><a href="contactus.html">PLACE ORDER</a></li>
+    
+    <li style="float:right"><a href="products.html">PRODUCTS</a></li>
+
+    
+      
+    </li>
+    <li style="float:right"><a href="#about">HOME</a></li>
+  </ul>
+  <div class="nav-background">
+    <div class="overlay-text">
+      <p style="font-size: 36px;">Quality Meets Affordability</p><br>
+      <p style="font-size: 72px;">SK Trading Company's <br>Commitment to Excellence</p>
+    </div>
+    <div class="button-container">
+      <button class="button" onclick="window.location.href='mailto:vaibhavsingh2814@gmail.com'">Contact Us</button>
+    </div>
+  </div>
+</div>
+
+
+<div style="text-align: center; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);">
+  <p style="color: black; font-size: 36px; font-weight: bold;">The Finest Selection</p>
+</div><br>
+<div style="text-align: center; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);">
+  <p style="color: darkgrey; font-size: 18px; font-weight: italic;">A Curation of Quality Products Tailored to Your Needs</p>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<p align="center">OUR BEST SELLING PRODUCTS</p>
+
+<div class="clearfix"></div>
+
+<div class="responsive">
+  <div class="gallery">
+    <div class="image-container" style="position: relative;">
+      <img class="product-image" src="1709722699.jpg" alt="Air Freshner" width="600" height="400">
+      <button class="enquire-button" onclick="window.location.href='mailto:vaibhavsingh2814@gmail.com'" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background-color: transparent; border: none;">
+       
+      </button>
+      <a href="mailto:vaibhavsingh2814@gmail.com" class="enquire-popup" style="text-decoration: none;">
+        <img src="7d07339f9bdecc320c3938fc05a8106d.jpg" alt="Mail Logo" style="width: 30px; height: auto; margin-right: 5px;">
+        <span>Contact us: vaibhavsingh2814@gmail.com</span>
+      </a>
+    </div>
+    <div class="desc">WEP MOP<br><span class="original-price">₹100</span><span class="discounted-price">₹80</span></div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <div class="image-container" style="position: relative;">
+      <img class="product-image" src="1709722425.jpg" alt="Air Freshner" width="600" height="400">
+      <button class="enquire-button" onclick="window.location.href='mailto:vaibhavsingh2814@gmail.com'" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background-color: transparent; border: none;">
+        
+      </button>
+      <a href="mailto:vaibhavsingh2814@gmail.com" class="enquire-popup" style="text-decoration: none;">
+        <img src="7d07339f9bdecc320c3938fc05a8106d.jpg" alt="Mail Logo" style="width: 30px; height: auto; margin-right: 5px;">
+        <span>Contact us: vaibhavsingh2814@gmail.com</span>
+      </a>
+    </div>
+    <div class="desc">Air Freshner 100 gm<br><span class="original-price">₹299</span><span class="discounted-price">₹199</span></div>
+  </div>
+</div>
+
+
+<div class="responsive">
+  <div class="gallery">
+    <div class="image-container" style="position: relative;">
+      <img class="product-image" src="1709721535.jpg" alt="Air Freshner" width="600" height="400">
+      <button class="enquire-button" onclick="window.location.href='mailto:vaibhavsingh2814@gmail.com'" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background-color: transparent; border: none;">
+        
+      </button>
+      <a href="mailto:vaibhavsingh2814@gmail.com" class="enquire-popup" style="text-decoration: none;">
+        <img src="7d07339f9bdecc320c3938fc05a8106d.jpg" alt="Mail Logo" style="width: 30px; height: auto; margin-right: 5px;">
+        <span>Contact us: vaibhavsingh2814@gmail.com</span>
+      </a>
+    </div>
+    <div class="desc">Tissue Paper<br><span class="original-price">₹160</span><span class="discounted-price">₹60</span></div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <div class="image-container" style="position: relative;">
+      <img class="product-image" src="1709721679.jpg" alt="Air Freshner" width="600" height="400">
+      <button class="enquire-button" onclick="window.location.href='mailto:vaibhavsingh2814@gmail.com'" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background-color: transparent; border: none;">
+       
+      </button>
+      <a href="mailto:vaibhavsingh2814@gmail.com" class="enquire-popup" style="text-decoration: none;">
+        <img src="7d07339f9bdecc320c3938fc05a8106d.jpg" alt="Mail Logo" style="width: 30px; height: auto; margin-right: 5px;">
+        <span>Contact us: vaibhavsingh2814@gmail.com</span>
+      </a>
+    </div>
+    <div class="desc">COTTON POCHHA XL<br><span class="original-price">₹299</span><span class="discounted-price">₹199</span></div>
+  </div>
+</div>
+
+
+<div class="responsive">
+  <div class="gallery">
+    <div class="image-container" style="position: relative;">
+      <img class="product-image" src="1709707480.jpg" alt="Air Freshner" width="600" height="400">
+      <button class="enquire-button" onclick="window.location.href='mailto:vaibhavsingh2814@gmail.com'" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background-color: transparent; border: none;">
+       
+      </button>
+      <a href="mailto:vaibhavsingh2814@gmail.com" class="enquire-popup" style="text-decoration: none;">
+        <img src="7d07339f9bdecc320c3938fc05a8106d.jpg" alt="Mail Logo" style="width: 30px; height: auto; margin-right: 5px;">
+        <span>Contact us: vaibhavsingh2814@gmail.com</span>
+      </a>
+    </div>
+    <div class="desc">Dettol Liquid Soap 1 litre<br><span class="original-price">₹299</span><span class="discounted-price">₹199</span></div>
+  </div>
+</div>
+
+
+<div class="responsive">
+  <div class="gallery">
+    <div class="image-container" style="position: relative;">
+      <img class="product-image" src="1709711446.jpg" alt="Air Freshner" width="600" height="400">
+      <button class="enquire-button" onclick="window.location.href='mailto:vaibhavsingh2814@gmail.com'" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background-color: transparent; border: none;">
+       
+      </button>
+      <a href="mailto:vaibhavsingh2814@gmail.com" class="enquire-popup" style="text-decoration: none;">
+        <img src="7d07339f9bdecc320c3938fc05a8106d.jpg" alt="Mail Logo" style="width: 30px; height: auto; margin-right: 5px;">
+        <span>Contact us: vaibhavsingh2814@gmail.com</span>
+      </a>
+    </div>
+    <div class="desc">GARBAGE BAG<br><span class="original-price">₹299</span><span class="discounted-price">₹199</span></div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <div class="image-container" style="position: relative;">
+      <img class="product-image" src="1709722089 (1).jpg" alt="Air Freshner" width="600" height="400">
+      <button class="enquire-button" onclick="window.location.href='mailto:vaibhavsingh2814@gmail.com'" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background-color: transparent; border: none;">
+       
+      </button>
+      <a href="mailto:vaibhavsingh2814@gmail.com" class="enquire-popup" style="text-decoration: none;">
+        <img src="7d07339f9bdecc320c3938fc05a8106d.jpg" alt="Mail Logo" style="width: 30px; height: auto; margin-right: 5px;">
+        <span>Contact us: vaibhavsingh2814@gmail.com</span>
+      </a>
+    </div>
+    <div class="desc">HARPIC 400ml<br><span class="original-price">₹299</span><span class="discounted-price">₹199</span></div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <div class="image-container" style="position: relative;">
+      <img class="product-image" src="1709711727.jpg" alt="Air Freshner" width="600" height="400">
+      <button class="enquire-button" onclick="window.location.href='mailto:vaibhavsingh2814@gmail.com'" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background-color: transparent; border: none;">
+       
+      </button>
+      <a href="mailto:vaibhavsingh2814@gmail.com" class="enquire-popup" style="text-decoration: none;">
+        <img src="7d07339f9bdecc320c3938fc05a8106d.jpg" alt="Mail Logo" style="width: 30px; height: auto; margin-right: 5px;">
+        <span>Contact us: vaibhavsingh2814@gmail.com</span>
+      </a>
+    </div>
+    <div class="desc">RUBBER GLOVES<br><span class="original-price">₹299</span><span class="discounted-price">₹199</span></div>
+  </div>
+</div>
+
+<div class="clearfix"></div>
+
+<!-- First Flexbox Section -->
+<div class="flexbox-container">
+  <div class="left-section">
+    <img src="1f4524c619e8b64c2ef500b8b07ddb22.jpg" alt="Image Description" style="width: 800px; height: 450px;">
+  </div>
+  <div class="right-section">
+    <p>
+      Welcome to SK Trading Company, your premier destination for top-quality housekeeping and cleaning products. Our mission is to provide you with the best cleaning solutions to maintain a clean and hygienic environment effortlessly.
+
+At SK Trading Company, we offer a diverse range of high-quality cleaning products tailored to meet all your housekeeping needs. From surface cleaners to laundry detergents, we have everything you need to keep your space sparkling clean. We prioritize quality and reliability in all our products, sourcing them from trusted manufacturers known for their commitment to excellence.
+
+Our dedicated team is here to assist you every step of the way, providing expert advice and exceptional customer service. We strive to make your shopping experience convenient and hassle-free, with a user-friendly website, secure payment options, and fast shipping.
+
+In addition to our commitment to quality and convenience, we're also passionate about sustainability. That's why we offer a selection of eco-friendly cleaning products that are gentle on the planet without compromising on performance.
+
+Whether you're a homeowner, business owner, or cleaning professional, SK Trading Company is your trusted partner for all your cleaning needs. Experience the SK Trading Company difference today and discover the joy of cleaning with confidence.
+
+    </p>
+  </div>
+</div>
+
+<div class="flexbox-container-second">
+  <div class="left-section-second">
+    <!-- Black Box for Buttons -->
+    <div class="clients-box">
+        <!-- Buttons Section -->
+        <button id="clients-button-1" class="clients-button" onclick="toggleClients('clients-button-1')">
+          <span class="company-text">WHAT IS SK TRADING COMPANY</span>
+          <span class="arrow-icon">
+            <img src="8c0e9bbff51ff007539ca50df6137ea5.jpg" alt="Arrow" style="width: 20px; height: 20px;">
+          </span>
+          <span id="clients-button-text-1" class="clients-button-text">
+            Housekeeping and cleaning product selling company providing top-quality solutions for maintaining cleanliness and hygiene in homes and businesses. Offering a diverse range of eco-friendly and effective products with a commitment to excellence and customer satisfaction.
+          </span>
+        </button>
+        <br><br>
+        <button id="clients-button-2" class="clients-button" onclick="toggleClients('clients-button-2')">
+          <span class="company-text">HOW TO PLACE ORDER ON OUR WEBSITE</span>
+          <span class="arrow-icon">
+            <img src="8c0e9bbff51ff007539ca50df6137ea5.jpg" alt="Arrow" style="width: 20px; height: 20px;">
+          </span>
+          <span id="clients-button-text-2" class="clients-button-text">
+            In Nav Bar go to Place Order page and select items and their quantities and tap on place order button
+          </span>
+        </button>
+        <br><br>
+        <button id="clients-button-3" class="clients-button" onclick="toggleClients('clients-button-3')">
+          <span class="company-text">OUR RETURN POLICY</span>
+          <span class="arrow-icon">
+            <img src="8c0e9bbff51ff007539ca50df6137ea5.jpg" alt="Arrow" style="width: 20px; height: 20px;">
+          </span>
+          <span id="clients-button-text-3" class="clients-button-text">
+            All the items can be returned if they are received damaged within 4 days of delivery
+          </span>
+        </button>
+        <br><br>
+        <button id="clients-button-4" class="clients-button" onclick="toggleClients('clients-button-4')">
+          <span class="company-text">OUR CONTACT NUMBER</span>
+          <span class="arrow-icon">
+            <img src="8c0e9bbff51ff007539ca50df6137ea5.jpg" alt="Arrow" style="width: 20px; height: 20px;">
+          </span>
+          <span id="clients-button-text-4" class="clients-button-text">
+            You can contact us on social media handles given below and our number 9810969537
+          </span>
+        </button>
+    </div>
+  </div>
+  <div class="right-section-second">
+    <!-- Image Section -->
+    <img src="2525122.jpg" alt="Image Description" style="width: 900px; height: 500px;">
+  </div>
+</div>
+
+<!-- Contact Section -->
+<div class="contact" id="contactarea">
+    <div class="contactdiv">
+        <div class="contacttext">
+            <p class="bigfont">Contact Us</p>
+            <p class="midfont" style="margin-top:35px;">Choose the options via you want to contact us. 🤝🏻🤝🏻</p>
+        </div>
+        <div class="contactbuttons">
+            <button class="email" onclick="window.location.href='mailto:vaibhavsingh2814@gmail.com'"><img src="7d07339f9bdecc320c3938fc05a8106d.jpg" alt="Email Icon">EMAIL</button>
+            <button class="instagram" onclick="window.location.href='https://www.instagram.com/vaibhavsingh7232/'"><img src="1942d5deb0f788e6228054cd92767ff6.jpg" alt="Instagram Icon">INSTAGRAM</button>
+            <button class="linkedin" onclick="window.location.href='https://www.linkedin.com/in/your_linkedin_account/'"><img src="fdfadd56cb3ea0ae5ad45cb3fabc0e18.jpg" alt="LinkedIn Icon">LINKEDIN</button>
+            <button class="twitter" onclick="window.location.href='https://twitter.com/your_twitter_account'"><img src="cc316f97197528e5e26e613a93ab16a4.jpg" alt="Twitter Icon">TWITTER</button>
+        </div>
+    </div>
+</div>
+
+<!-- Copyright Section -->
+<div class="copyright">
+    © Copyright 2023. Made by Vaibhav Singh
+</div>
+
+<script>
+  function toggleClients(buttonId) {
+    var button = document.getElementById(buttonId);
+    var buttonText = button.getElementsByClassName("clients-button-text")[0];
+    
+    if (!button.classList.contains("active")) {
+      button.classList.add("active");
+      buttonText.style.display = "block";
+    } else {
+      button.classList.remove("active");
+      buttonText.style.display = "none";
+    }
+  }
+</script>
+</body>
+</html>
